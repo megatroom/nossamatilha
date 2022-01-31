@@ -18,7 +18,10 @@ module.exports = {
   staticDirs: ["../public"],
   stories: [
     "../stories/**/*.stories.mdx",
-    "../stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/atoms/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/molecules/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/organisms/**/*.stories.@(js|jsx|ts|tsx)",
+    "../stories/templates/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
   framework: "@storybook/react",

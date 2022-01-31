@@ -7,8 +7,6 @@ import "@fontsource/raleway/500.css";
 import "@fontsource/raleway/700.css";
 // import "@fontsource/raleway/800.css";
 
-import "./globals.css";
-
 export const defaultTheme = createTheme({
   palette: {
     primary: {

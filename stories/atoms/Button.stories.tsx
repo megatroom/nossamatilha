@@ -1,5 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import Stack from "@mui/material/Stack";
 
 // import { Button } from './Button';
 import Button from "../../components/atoms/Button";
@@ -15,15 +16,31 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof Button> = (args) => (
+  <Stack direction="row" spacing={2}>
+    <Button {...args}>Primary</Button>
+    <Button {...args} color="secondary">
+      Secondary
+    </Button>
+    <Button {...args} color="success">
+      Success
+    </Button>
+    <Button {...args} color="error">
+      Error
+    </Button>
+  </Stack>
+);
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  children: "Primary",
+Primary.args = {};
+
+export const Large = Template.bind({});
+Large.args = {
+  size: "large",
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  children: "Secondary",
+export const Hero = Template.bind({});
+Hero.args = {
+  isHero: true,
 };
