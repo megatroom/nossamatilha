@@ -98,12 +98,16 @@ const Summary = styled(Typography)<TypographyProps>(({ theme }) => ({
   marginBottom: 16,
 }));
 
-const ExpandContainer = styled("div")(({ expanded }) => ({
+interface ExpandContainerProps {
+  expanded?: string;
+}
+
+const ExpandContainer = styled("div")<ExpandContainerProps>(({ expanded }) => ({
   position: "relative",
   overflow: "hidden",
-  height: expanded ? "auto" : 120,
+  height: expanded === "1" ? "auto" : 120,
 
-  "&:after": !expanded && {
+  "&:after": expanded !== "1" && {
     content: '""',
     position: "absolute",
     bottom: 0,
@@ -148,7 +152,7 @@ function FeatureItem({ image, title, summary, description }: Item) {
           {title}
         </Title>
         <Summary variant="subtitle1">{summary}</Summary>
-        <ExpandContainer expanded={expanded}>
+        <ExpandContainer expanded={expanded ? "1" : "0"}>
           {description.map((text, index) => (
             <Description key={`feat-desc-${index}`} variant="body1">
               {text}

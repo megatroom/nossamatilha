@@ -4,6 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 import { styled } from "../../../styles/Theme";
+import { buildWhatsAppURL } from "../../../hooks/whatsapp";
 import Button from "../../atoms/Button";
 import Underline from "../../atoms/Underline";
 import SiteContainer from "../../atoms/SiteContainer";
@@ -100,6 +101,8 @@ export default function Hero() {
   const theme = useTheme();
   const isDownSM = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const whatsAppURL = buildWhatsAppURL("Olá, tudo bem?");
+
   return (
     <Root>
       <BgWrap>
@@ -141,7 +144,13 @@ export default function Hero() {
                 >
                   Saiba mais
                 </Button>
-                <Button color="secondary" isHero>
+                <Button
+                  color="secondary"
+                  component="a"
+                  href={whatsAppURL}
+                  target="_blank"
+                  isHero
+                >
                   Agendar visita
                 </Button>
               </Stack>
