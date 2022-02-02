@@ -7,8 +7,8 @@ const StyledButton = styled(Button)`
     isHero &&
     css`
       font-size: 17px;
-      border-radius: 50px;
-      padding: 20px 60px;
+      border-radius: 12px;
+      padding: 15px 32px;
       font-weight: 700;
     `}
 `;

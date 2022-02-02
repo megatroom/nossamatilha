@@ -1,4 +1,5 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { createStyled } from "@mui/system";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import "@fontsource/raleway/300.css";
@@ -39,3 +40,5 @@ export default function Theme({ children }: Props) {
     </ThemeProvider>
   );
 }
+
+export const styled = createStyled({ defaultTheme });
