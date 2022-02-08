@@ -1,8 +1,8 @@
 import SiteNavbar from "../../organisms/SiteNavbar";
 import Hero from "../../organisms/Hero";
 import Features from "../../organisms/Features";
-// import Showroom from "../../organisms/Showroom";
 import Footer from "../../organisms/SiteFooter";
+import Testimonials from "../../organisms/Testimonials";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <main>
         <Features />
-        {/* <Showroom /> */}
+        <Testimonials />
       </main>
       <Footer />
     </>

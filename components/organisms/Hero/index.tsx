@@ -101,7 +101,9 @@ export default function Hero() {
   const theme = useTheme();
   const isDownSM = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const whatsAppURL = buildWhatsAppURL("Olá, tudo bem?");
+  const whatsAppURL = buildWhatsAppURL(
+    "Olá! Vi no site sobre a Nossa Matilha e gostaria de saber como agendar uma visita."
+  );
 
   return (
     <Root>

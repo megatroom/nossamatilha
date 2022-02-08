@@ -33,24 +33,32 @@ const Root = styled.div`
   }
 `;
 
-const Title = styled(Typography)<TypographyProps>(({ theme }) => ({
-  color: theme.palette.primary.main,
+interface TitleProps extends TypographyProps {
+  reverse: string;
+}
+
+const Title = styled(Typography)<TitleProps>(({ theme, reverse }) => ({
+  color: reverse === "1" ? "#fff" : theme.palette.primary.main,
 }));
 
 interface Props {
   children: React.ReactNode;
   id?: string;
   marginBottom?: number;
+  reverse?: boolean;
 }
 
 export default function SiteSectionTitle({
   children,
   id,
   marginBottom,
+  reverse,
 }: Props) {
   return (
     <Root id={id} marginBottom={marginBottom}>
-      <Title variant="h3">{children}</Title>
+      <Title variant="h3" reverse={reverse ? "1" : "0"}>
+        {children}
+      </Title>
     </Root>
   );
 }

@@ -5,13 +5,16 @@ import { styled } from "../../../styles/Theme";
 import SiteSectionTitle from "../../molecules/SiteSectionTitle";
 import SiteContainer from "../../atoms/SiteContainer";
 import ButtonLink from "../../atoms/ButtonLink";
-import Block1 from "./img/adestramento-01.jpg";
-import Block2 from "./img/pet-sitter.jpg";
+import Button from "../../atoms/Button";
+import Block1 from "./img/adestramento-02.jpeg";
+import Block2 from "./img/pet-sitter-02.jpeg";
 import Block3 from "./img/passeio-01.jpg";
+import { buildWhatsAppURL } from "../../../hooks/whatsapp";
 
 interface Item {
   id: number;
   image: StaticImageData;
+  imagePosition: string;
   title: string;
   summary: string;
   description: string[];
@@ -21,6 +24,7 @@ const items: Item[] = [
   {
     id: 1,
     image: Block1,
+    imagePosition: "top center",
     title: "Adestramento Positivo",
     summary:
       "Tornar seu melhor amigo capaz de obedecer comandos sem usar de punições ou recompensas.",
@@ -33,6 +37,7 @@ const items: Item[] = [
   {
     id: 2,
     image: Block2,
+    imagePosition: "center center",
     title: "Pet Sitter",
     summary:
       "Cuidamos do seu melhor amigo em sua casa. Alimentação, limpeza, passeio e muito carinho!",
@@ -44,6 +49,7 @@ const items: Item[] = [
   {
     id: 3,
     image: Block3,
+    imagePosition: "center center",
     title: "Passeio Educativo",
     summary:
       "Educamos seu melhor amigo para que ele não puxe a guia nem lata para outros cães durante o passeio.",
@@ -128,12 +134,27 @@ const ShowMoreContainer = styled("div")({
   marginTop: 16,
 });
 
-function FeatureItem({ image, title, summary, description }: Item) {
+const CallToAction = styled("div")({
+  margin: "16px 0",
+});
+
+function FeatureItem({
+  image,
+  imagePosition,
+  title,
+  summary,
+  description,
+}: Item) {
   const [expanded, setExpanded] = useState(false);
 
   const handleShowMore = () => {
     setExpanded((prevState) => !prevState);
   };
+
+  const buildCTA = (topic: string) =>
+    buildWhatsAppURL(
+      `Olá! Vi no site sobre ${topic} e gostaria de saber mais a respeito.`
+    );
 
   return (
     <Row>
@@ -143,7 +164,8 @@ function FeatureItem({ image, title, summary, description }: Item) {
           alt={title}
           layout="fill"
           objectFit="cover"
-          objectPosition="center center"
+          objectPosition={imagePosition}
+          placeholder="blur"
           quality={100}
         />
       </Media>
@@ -158,6 +180,11 @@ function FeatureItem({ image, title, summary, description }: Item) {
               {text}
             </Description>
           ))}
+          <CallToAction>
+            <Button component="a" target="_blank" href={buildCTA(title)}>
+              Agendar serviço
+            </Button>
+          </CallToAction>
         </ExpandContainer>
         {!expanded && (
           <ShowMoreContainer>
