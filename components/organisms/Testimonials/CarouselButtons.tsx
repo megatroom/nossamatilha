@@ -55,3 +55,37 @@ export const NextButton = ({ enabled, onClick }: ButtonProp) => (
     </svg>
   </BaseButton>
 );
+
+interface DotProps extends ButtonProps {
+  selected: "1" | "0";
+}
+
+export const DotButton = styled("button")<DotProps>(({ theme, selected }) => ({
+  backgroundColor: "#fff",
+  cursor: "pointer",
+  position: "relative",
+  padding: "0",
+  outline: "0",
+  borderRadius: "50%",
+  width: "10px",
+  height: "10px",
+  margin: "0 16px",
+  display: "flex",
+  alignItems: "center",
+
+  [theme.breakpoints.down("sm")]: {
+    margin: "0 8px",
+  },
+
+  "&:after": selected === "1" && {
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    border: "3px solid #a7da77",
+    content: '""',
+    opacity: 1,
+    position: "absolute",
+    top: "-7px",
+    left: "-7px",
+  },
+}));

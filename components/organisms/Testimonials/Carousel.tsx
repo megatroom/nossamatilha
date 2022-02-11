@@ -3,12 +3,11 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import useEmblaCarousel from "embla-carousel-react";
-import { ButtonProps } from "@mui/material";
 import { yellow } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import { styled } from "../../../styles/Theme";
 import QuoteMark from "../../atoms/QuoteMark";
-import { PrevButton, NextButton } from "./CarouselButtons";
+import { PrevButton, NextButton, DotButton } from "./CarouselButtons";
 import { testimonials } from "./data";
 import StarIcon from "@mui/icons-material/Star";
 
@@ -75,42 +74,8 @@ const DotContainer = styled("div")({
   display: "flex",
   listStyle: "none",
   justifyContent: "center",
-  paddingTop: "10px",
+  padding: "10px 0",
 });
-
-interface DotProps extends ButtonProps {
-  selected: "1" | "0";
-}
-
-const DotButton = styled("button")<DotProps>(({ theme, selected }) => ({
-  backgroundColor: "#fff",
-  cursor: "pointer",
-  position: "relative",
-  padding: "0",
-  outline: "0",
-  borderRadius: "50%",
-  width: "10px",
-  height: "10px",
-  margin: "0 16px",
-  display: "flex",
-  alignItems: "center",
-
-  [theme.breakpoints.down("sm")]: {
-    margin: "0 8px",
-  },
-
-  "&:after": selected === "1" && {
-    width: "20px",
-    height: "20px",
-    borderRadius: "50%",
-    border: "3px solid #a7da77",
-    content: '""',
-    opacity: 1,
-    position: "absolute",
-    top: "-7px",
-    left: "-7px",
-  },
-}));
 
 function useSlidesToScroll() {
   const theme = useTheme();
