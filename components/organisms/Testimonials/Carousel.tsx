@@ -23,9 +23,9 @@ const Viewport = styled("div")({
 const Container = styled("div")({
   display: "flex",
   userSelect: "none",
-  "-webkit-touch-callout": "none",
-  "-khtml-user-select": "none",
-  "-webkit-tap-highlight-color": "transparent",
+  WebkitTouchCallout: "none",
+  KhtmlUserSelect: "none",
+  WebkitTapHighlightColor: "transparent",
   marginLeft: "-10px",
 });
 
