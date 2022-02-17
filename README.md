@@ -1,6 +1,8 @@
 # Nossa Matilha
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[![NossaMatilha](https://circleci.com/gh/megatroom/nossamatilha.svg?style=svg)](https://circleci.com/gh/megatroom/nossamatilha)
+
+Source code for [nossamatilhadogs.com.br](https://nossamatilhadogs.com.br).
 
 ## Getting Started
 

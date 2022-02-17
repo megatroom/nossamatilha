@@ -1,13 +1,13 @@
-import { styled } from "../../styles/Theme";
+import { styled } from '../../styles/Theme'
 
-const SvgBox = styled("svg")({
-  position: "absolute",
+const SvgBox = styled('svg')({
+  position: 'absolute',
   zIndex: 2,
-  left: "-24px",
-  top: "-16px",
-  width: "42px",
-  fill: "#ffcf21",
-});
+  left: '-24px',
+  top: '-16px',
+  width: '42px',
+  fill: '#ffcf21',
+})
 
 export default function QuoteMark() {
   return (
@@ -47,5 +47,5 @@ export default function QuoteMark() {
         <use xlinkHref="#quote" x="10%" y="10%"></use>
       </SvgBox>
     </>
-  );
+  )
 }

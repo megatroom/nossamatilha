@@ -1,25 +1,25 @@
-import Image from "next/image";
-import { styled } from "../../../styles/Theme";
+import Image from 'next/image'
+import { styled } from '../../../styles/Theme'
 // import { useTheme } from "@mui/material/styles";
 // import useMediaQuery from "@mui/material/useMediaQuery";
 // import PetsIcon from "@mui/icons-material/Pets";
 // import Button from "../../atoms/Button";
-import SiteContainer from "../../atoms/SiteContainer";
-import LogoImg from "./img/nossa-matilha-navbar-logo.png";
+import SiteContainer from '../../atoms/SiteContainer'
+import LogoImg from './img/nossa-matilha-navbar-logo.png'
 
-const Root = styled("header")({
-  padding: "8px 0",
-});
+const Root = styled('header')({
+  padding: '8px 0',
+})
 
-const Content = styled("div")(({ theme }) => ({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+const Content = styled('div')(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
 
-  [theme.breakpoints.down("sm")]: {
-    justifyContent: "center",
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
   },
-}));
+}))
 
 export default function SiteNavbar() {
   // const theme = useTheme();
@@ -45,5 +45,5 @@ export default function SiteNavbar() {
         </Content>
       </SiteContainer>
     </Root>
-  );
+  )
 }

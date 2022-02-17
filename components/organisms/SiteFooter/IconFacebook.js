@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react'
 
 const SvgIconFacebook = (props) => (
   <svg
@@ -16,6 +16,6 @@ const SvgIconFacebook = (props) => (
       fill="#fff"
     />
   </svg>
-);
+)
 
-export default SvgIconFacebook;
+export default SvgIconFacebook
