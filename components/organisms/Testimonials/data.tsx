@@ -1,110 +1,110 @@
-import AvatarAndrigo from "./img/andrigo.jpeg";
-import AvatarLeonardo from "./img/leonardo.jpeg";
-import AvatarThais from "./img/thais.jpeg";
-import AvatarGabriela from "./img/gabriela.png";
-import AvatarMarilia from "./img/marilia.jpeg";
-import AvatarDanielle from "./img/danielle.jpg";
-import AvatarMarcia from "./img/marcia.jpeg";
-import AvatarAlexandre from "./img/alexandre-soares.jpg";
-import AvatarAnaPaula from "./img/ana-paula-costa.jpg";
+import AvatarAndrigo from './img/andrigo.jpeg'
+import AvatarLeonardo from './img/leonardo.jpeg'
+import AvatarThais from './img/thais.jpeg'
+import AvatarGabriela from './img/gabriela.png'
+import AvatarMarilia from './img/marilia.jpeg'
+import AvatarDanielle from './img/danielle.jpg'
+import AvatarMarcia from './img/marcia.jpeg'
+import AvatarAlexandre from './img/alexandre-soares.jpg'
+import AvatarAnaPaula from './img/ana-paula-costa.jpg'
 
 export interface TestimonialEntity {
-  id: number;
-  image: StaticImageData;
-  name: string;
-  text: string;
-  startDate?: string;
-  endDate?: string;
-  origin: string;
+  id: number
+  image: StaticImageData
+  name: string
+  text: string
+  startDate?: string
+  endDate?: string
+  origin: string
 }
 
-let idGenerator = 0;
+let idGenerator = 0
 const lazyId = () => {
-  idGenerator += 1;
-  return idGenerator;
-};
+  idGenerator += 1
+  return idGenerator
+}
 
 export const testimonials: TestimonialEntity[] = [
   {
     id: lazyId(),
     image: AvatarAndrigo,
-    name: "Andrigo",
-    text: "Muito bom o cuidado da Silvia com a Frida. Além de ter ocorrido tudo certo na hospedagem, ela também deu dicas para acalmar meu pet, com um olhar de adestrador. Recomendo demais.",
-    startDate: "27/02/2021",
-    endDate: "28/02/2021",
-    origin: "doghero",
+    name: 'Andrigo',
+    text: 'Muito bom o cuidado da Silvia com a Frida. Além de ter ocorrido tudo certo na hospedagem, ela também deu dicas para acalmar meu pet, com um olhar de adestrador. Recomendo demais.',
+    startDate: '27/02/2021',
+    endDate: '28/02/2021',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarLeonardo,
-    name: "Leonardo",
-    text: "Ela foi muito atenciosa no processo todo. Nos passou bastante confiança para deixar nosso filhote longe de casa o final de semana. Recomendo!!",
-    startDate: "20/02/2021",
-    endDate: "21/02/2021",
-    origin: "doghero",
+    name: 'Leonardo',
+    text: 'Ela foi muito atenciosa no processo todo. Nos passou bastante confiança para deixar nosso filhote longe de casa o final de semana. Recomendo!!',
+    startDate: '20/02/2021',
+    endDate: '21/02/2021',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarThais,
-    name: "Thaís",
-    text: "A Silvia foi ótima com a nossa Dorothy, ela é super ansiosa e a Silvia soube lidar muito bem. Levou para passear e nos informou cada detalhe da hospedagem. E ainda a Naomi ajudou muito no cuidado e carinho com a nossa dogzinha. Adoramos e recomendo muito!",
-    startDate: "27/12/2019",
-    endDate: "03/01/2020",
-    origin: "doghero",
+    name: 'Thaís',
+    text: 'A Silvia foi ótima com a nossa Dorothy, ela é super ansiosa e a Silvia soube lidar muito bem. Levou para passear e nos informou cada detalhe da hospedagem. E ainda a Naomi ajudou muito no cuidado e carinho com a nossa dogzinha. Adoramos e recomendo muito!',
+    startDate: '27/12/2019',
+    endDate: '03/01/2020',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarGabriela,
-    name: "Gabriela",
-    text: "A hospedagem foi ótima, sempre me mantendo informada, tratou ele com muito carinho e dedicação, o Buddy foi muito bem cuidado e brincou muito com sua filha. Fiquei super tranquila em deixar ele com a Silvia, pois ela tem bastante experiência com cachorros, e cuidou dele como se fosse da família dela, com certeza recomendo!! Logo o Buddy voltará para mais uma hospedagem! Nota 1000!!",
-    startDate: "09/11/2019",
-    endDate: "11/11/2019",
-    origin: "doghero",
+    name: 'Gabriela',
+    text: 'A hospedagem foi ótima, sempre me mantendo informada, tratou ele com muito carinho e dedicação, o Buddy foi muito bem cuidado e brincou muito com sua filha. Fiquei super tranquila em deixar ele com a Silvia, pois ela tem bastante experiência com cachorros, e cuidou dele como se fosse da família dela, com certeza recomendo!! Logo o Buddy voltará para mais uma hospedagem! Nota 1000!!',
+    startDate: '09/11/2019',
+    endDate: '11/11/2019',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarMarilia,
-    name: "Marilia",
-    text: "A hospedagem da Lila não poderia ter sido melhor! Além da querida Silvia cuidando, tinha também a filhinha dela que com certeza contribuiu para que a Lila se sentisse muito bem. Com certeza será com a Silvia que deixarei todas as vezes que eu precisar. Um doce de pessoa.",
-    startDate: "06/06/2019",
-    endDate: "09/06/2019",
-    origin: "doghero",
+    name: 'Marilia',
+    text: 'A hospedagem da Lila não poderia ter sido melhor! Além da querida Silvia cuidando, tinha também a filhinha dela que com certeza contribuiu para que a Lila se sentisse muito bem. Com certeza será com a Silvia que deixarei todas as vezes que eu precisar. Um doce de pessoa.',
+    startDate: '06/06/2019',
+    endDate: '09/06/2019',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarDanielle,
-    name: "Danielle",
-    text: "A experiência não podia ter sido melhor! Silvia é cuidadosa, muito carinhosa e responsável. Cuidou do meu Joe com todo carinho, administrando medicação, oferecendo petiscos e cuidando para que eu sempre estivesse informada sobre sua estadia. Um brinde foi a companhia da sua filha, que é uma fofa e adorou se divertir com meu bicho rs",
-    startDate: "26/05/2019",
-    endDate: "29/05/2019",
-    origin: "doghero",
+    name: 'Danielle',
+    text: 'A experiência não podia ter sido melhor! Silvia é cuidadosa, muito carinhosa e responsável. Cuidou do meu Joe com todo carinho, administrando medicação, oferecendo petiscos e cuidando para que eu sempre estivesse informada sobre sua estadia. Um brinde foi a companhia da sua filha, que é uma fofa e adorou se divertir com meu bicho rs',
+    startDate: '26/05/2019',
+    endDate: '29/05/2019',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarMarcia,
-    name: "Marcia",
-    text: "A Silvia é uma profissional extremamente competente e atenciosa, com a Lilo e comigo ! Lilo é uma chow-chow, já com 12 anos, e a Silvia transmitiu segurança e confiança, inclusive interagindo com a sua filha fofa!! Sua ajuda nesse verão foi indispensável. Agradeço muito, e aguarde novas visitas!",
-    startDate: "22/12/2018",
-    endDate: "13/01/2019",
-    origin: "doghero",
+    name: 'Marcia',
+    text: 'A Silvia é uma profissional extremamente competente e atenciosa, com a Lilo e comigo ! Lilo é uma chow-chow, já com 12 anos, e a Silvia transmitiu segurança e confiança, inclusive interagindo com a sua filha fofa!! Sua ajuda nesse verão foi indispensável. Agradeço muito, e aguarde novas visitas!',
+    startDate: '22/12/2018',
+    endDate: '13/01/2019',
+    origin: 'doghero',
   },
   {
     id: lazyId(),
     image: AvatarAlexandre,
-    name: "Alexandre Soares",
-    text: "Foram os melhores anos para meus cães, excelente profissional, dedicação, e muito amor, com nossos filhos de 4 patas. Eu recomendo!",
-    startDate: "29/10/2018",
-    origin: "facebook",
+    name: 'Alexandre Soares',
+    text: 'Foram os melhores anos para meus cães, excelente profissional, dedicação, e muito amor, com nossos filhos de 4 patas. Eu recomendo!',
+    startDate: '29/10/2018',
+    origin: 'facebook',
   },
   {
     id: lazyId(),
     image: AvatarAnaPaula,
-    name: "Ana Paula Costa",
-    text: "Silvia tem um carinho especial pelo cães!¡! Profissional dedicada e atenciosa. Minha Pastora já tinha passado por outros 2 adestradores que não deu certo. Felizmente tive o prazer de conhecê-la e comecei o adestramento com ela. Tudo fluiu depois disso. Só tenho a agradecer todos os ensinamentos que ela passou. Não só p meus cães, p mim tb.",
-    startDate: "30/10/2018",
-    origin: "facebook",
+    name: 'Ana Paula Costa',
+    text: 'Silvia tem um carinho especial pelo cães!¡! Profissional dedicada e atenciosa. Minha Pastora já tinha passado por outros 2 adestradores que não deu certo. Felizmente tive o prazer de conhecê-la e comecei o adestramento com ela. Tudo fluiu depois disso. Só tenho a agradecer todos os ensinamentos que ela passou. Não só p meus cães, p mim tb.',
+    startDate: '30/10/2018',
+    origin: 'facebook',
   },
-];
+]
 
 // export const testimonials: TestimonialEntity[] = [
 //   {

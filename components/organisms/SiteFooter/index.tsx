@@ -1,40 +1,40 @@
-import Image from "next/image";
-import { styled } from "../../../styles/Theme";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import SiteContainer from "../../atoms/SiteContainer";
-import LogoImg from "./img/NossaMatilha400.png";
-import InstagramIco from "./IconInstagram";
-import FacebookIco from "./IconFacebook";
+import Image from 'next/image'
+import { styled } from '../../../styles/Theme'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import SiteContainer from '../../atoms/SiteContainer'
+import LogoImg from './img/NossaMatilha400.png'
+import InstagramIco from './IconInstagram'
+import FacebookIco from './IconFacebook'
 
-const Root = styled("footer")({
-  borderTop: "1px solid #dddddd6e",
-  padding: "1rem 0",
-});
+const Root = styled('footer')({
+  borderTop: '1px solid #dddddd6e',
+  padding: '1rem 0',
+})
 
 const Title = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main,
-}));
+}))
 
-const GridItem = styled("div")(({ theme }) => ({
+const GridItem = styled('div')(({ theme }) => ({
   padding: 16,
 
-  [theme.breakpoints.down("sm")]: {
-    textAlign: "center",
+  [theme.breakpoints.down('sm')]: {
+    textAlign: 'center',
   },
-}));
+}))
 
-const Grid = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "space-around",
+const Grid = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'flex-start',
+  justifyContent: 'space-around',
 
-  [theme.breakpoints.down("sm")]: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
-}));
+}))
 
 export default function SiteFooter() {
   return (
@@ -60,7 +60,7 @@ export default function SiteFooter() {
                 href="https://www.instagram.com/nossamatilha.dogs"
               >
                 <InstagramIco width="42px" />
-              </IconButton>{" "}
+              </IconButton>{' '}
               <IconButton
                 target="_blank"
                 href="https://www.facebook.com/nossamatilha.dogs"
@@ -72,5 +72,5 @@ export default function SiteFooter() {
         </Grid>
       </SiteContainer>
     </Root>
-  );
+  )
 }

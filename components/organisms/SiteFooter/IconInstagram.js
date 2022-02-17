@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react'
 
 const SvgIconInstagram = (props) => (
   <svg
@@ -46,6 +46,6 @@ const SvgIconInstagram = (props) => (
       />
     </g>
   </svg>
-);
+)
 
-export default SvgIconInstagram;
+export default SvgIconInstagram

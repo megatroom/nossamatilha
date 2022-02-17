@@ -1,33 +1,33 @@
-import { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
-import useEmblaCarousel from "embla-carousel-react";
-import { ButtonProps } from "@mui/material";
+import { useEffect, useState, useCallback } from 'react'
+import Image from 'next/image'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
+import useEmblaCarousel from 'embla-carousel-react'
+import { ButtonProps } from '@mui/material'
 
 const Root = styled.div`
   overflow: hidden;
-`;
+`
 
 const Container = styled.div`
   display: flex;
-`;
+`
 
 const Slide = styled.div`
   position: relative;
   flex: 0 0 100%;
   height: 460px;
-`;
+`
 
 const DotContainer = styled.div`
   display: flex;
   list-style: none;
   justify-content: center;
   padding-top: 10px;
-`;
+`
 
 interface DotProps extends ButtonProps {
-  selected: boolean;
+  selected: boolean
 }
 
 const DotButton = styled.button`
@@ -48,7 +48,7 @@ const DotButton = styled.button`
     width: 100%;
     height: 4px;
     border-radius: 2px;
-    content: "";
+    content: '';
 
     ${({ selected }: DotProps) =>
       selected
@@ -60,36 +60,36 @@ const DotButton = styled.button`
             background-color: #efefef;
           `}
   }
-`;
+`
 
 interface CarrouselItem {
-  id: number;
-  image: StaticImageData;
+  id: number
+  image: StaticImageData
 }
 
 interface Props {
-  items: CarrouselItem[];
+  items: CarrouselItem[]
 }
 
 export default function Carrousel({ items }: Props) {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [emblaRef, embla] = useEmblaCarousel({ loop: true })
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const scrollTo = useCallback(
     (index) => embla && embla.scrollTo(index),
     [embla]
-  );
+  )
 
   const onSelect = useCallback(() => {
-    if (!embla) return;
-    setSelectedIndex(embla.selectedScrollSnap());
-  }, [embla, setSelectedIndex]);
+    if (!embla) return
+    setSelectedIndex(embla.selectedScrollSnap())
+  }, [embla, setSelectedIndex])
 
   useEffect(() => {
-    if (!embla) return;
-    onSelect();
-    embla.on("select", onSelect);
-  }, [embla, onSelect]);
+    if (!embla) return
+    onSelect()
+    embla.on('select', onSelect)
+  }, [embla, onSelect])
 
   return (
     <div>
@@ -120,5 +120,5 @@ export default function Carrousel({ items }: Props) {
         ))}
       </DotContainer>
     </div>
-  );
+  )
 }
