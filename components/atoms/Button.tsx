@@ -1,24 +1,26 @@
 import Button, { ButtonProps } from "@mui/material/Button";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { styled } from "../../styles/Theme";
 
 interface StyledButtonProps {
   hero?: string;
 }
 
-const StyledButton = styled(Button)<StyledButtonProps>`
-  ${({ hero }) =>
-    hero === "1" &&
-    css`
-      font-size: 17px;
-      border-radius: 12px;
-      padding: 15px 32px;
-      font-weight: 700;
-    `}
-`;
+const StyledButton = styled(Button)<StyledButtonProps>(({ hero }) => {
+  if (hero === "1") {
+    return {
+      fontSize: "17px",
+      borderRadius: "12px",
+      padding: "15px 32px",
+      fontWeight: "700",
+    };
+  }
+
+  return {};
+});
 
 interface Props extends ButtonProps {
   isHero?: boolean;
+  target?: string;
 }
 
 export default function MyButton({

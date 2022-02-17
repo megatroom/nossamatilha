@@ -56,14 +56,12 @@ export default function SiteFooter() {
             </Title>
             <div>
               <IconButton
-                component="a"
                 target="_blank"
                 href="https://www.instagram.com/nossamatilha.dogs"
               >
                 <InstagramIco width="42px" />
               </IconButton>{" "}
               <IconButton
-                component="a"
                 target="_blank"
                 href="https://www.facebook.com/nossamatilha.dogs"
               >

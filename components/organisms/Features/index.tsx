@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
-import Typography, { TypographyProps } from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
 import { styled } from "../../../styles/Theme";
 import SiteSectionTitle from "../../molecules/SiteSectionTitle";
 import SiteContainer from "../../atoms/SiteContainer";
-import ButtonLink from "../../atoms/ButtonLink";
+import LinkButton from "../../atoms/LinkButton";
 import Button from "../../atoms/Button";
 import Block1 from "./img/adestramento-02.jpeg";
 import Block2 from "./img/pet-sitter-02.jpeg";
@@ -93,12 +93,16 @@ const Media = styled("div")(({ theme }) => ({
   },
 }));
 
-const Title = styled(Typography)<TypographyProps>(({ theme }) => ({
+interface TitleProps {
+  component?: string;
+}
+
+const Title = styled(Typography)<TitleProps>(({ theme }) => ({
   color: theme.palette.primary.main,
   fontWeight: 500,
 }));
 
-const Summary = styled(Typography)<TypographyProps>(({ theme }) => ({
+const Summary = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontWeight: 700,
   marginBottom: 16,
@@ -124,11 +128,10 @@ const ExpandContainer = styled("div")<ExpandContainerProps>(({ expanded }) => ({
   },
 }));
 
-const Description = styled(Typography)<TypographyProps>(({ theme }) => ({
-  // color: theme.palette.text.secondary,
+const Description = styled(Typography)({
   fontWeight: 500,
   marginBottom: 8,
-}));
+});
 
 const ShowMoreContainer = styled("div")({
   marginTop: 16,
@@ -181,14 +184,14 @@ function FeatureItem({
             </Description>
           ))}
           <CallToAction>
-            <Button component="a" target="_blank" href={buildCTA(title)}>
+            <Button target="_blank" href={buildCTA(title)}>
               Agendar serviço
             </Button>
           </CallToAction>
         </ExpandContainer>
         {!expanded && (
           <ShowMoreContainer>
-            <ButtonLink onClick={handleShowMore}>Continuar lendo</ButtonLink>
+            <LinkButton onClick={handleShowMore}>Continuar lendo</LinkButton>
           </ShowMoreContainer>
         )}
       </div>

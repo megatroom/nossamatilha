@@ -71,7 +71,6 @@ export default function ContactCallout() {
               startIcon={<WhatsAppIcon />}
               color="secondary"
               size="large"
-              component="a"
               href={whatsAppURL}
               target="_blank"
             >
@@ -89,7 +88,6 @@ export default function ContactCallout() {
               startIcon={<InstagramIcon />}
               color="secondary"
               size="large"
-              component="a"
               href="https://www.instagram.com/nossamatilha.dogs/"
               target="_blank"
             >

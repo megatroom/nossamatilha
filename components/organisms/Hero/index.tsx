@@ -139,7 +139,7 @@ export default function Hero() {
                 <Button
                   isHero
                   onClick={() => {
-                    document.querySelector("#features").scrollIntoView({
+                    document.querySelector("#features")?.scrollIntoView({
                       behavior: "smooth",
                     });
                   }}
@@ -148,7 +148,6 @@ export default function Hero() {
                 </Button>
                 <Button
                   color="secondary"
-                  component="a"
                   href={whatsAppURL}
                   target="_blank"
                   isHero

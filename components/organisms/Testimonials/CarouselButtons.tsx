@@ -1,5 +1,4 @@
 import React from "react";
-import { ButtonProps } from "@mui/material";
 import { styled } from "../../../styles/Theme";
 
 interface ButtonProp {
@@ -7,19 +6,13 @@ interface ButtonProp {
   onClick: any;
 }
 
-interface StyledButtonProps extends ButtonProps {
-  btnposition: "left" | "right";
-}
-
-const BaseButton = styled("button")<StyledButtonProps>(({ btnposition }) => ({
+const BaseButton = styled("button")({
   outline: 0,
   cursor: "pointer",
   backgroundColor: "transparent",
   touchAction: "manipulation",
   position: "absolute",
   top: "50%",
-  left: btnposition === "left" && "27px",
-  right: btnposition === "right" && "27px",
   border: 0,
   width: "30px",
   height: "30px",
@@ -32,10 +25,10 @@ const BaseButton = styled("button")<StyledButtonProps>(({ btnposition }) => ({
     cursor: "default",
     opacity: 0.3,
   },
-}));
+});
 
 export const PrevButton = ({ enabled, onClick }: ButtonProp) => (
-  <BaseButton btnposition="left" onClick={onClick} disabled={!enabled}>
+  <BaseButton sx={{ left: "27px" }} onClick={onClick} disabled={!enabled}>
     <svg
       style={{ width: "100%", height: "100%" }}
       viewBox="137.718 -1.001 366.563 644"
@@ -46,7 +39,7 @@ export const PrevButton = ({ enabled, onClick }: ButtonProp) => (
 );
 
 export const NextButton = ({ enabled, onClick }: ButtonProp) => (
-  <BaseButton btnposition="right" onClick={onClick} disabled={!enabled}>
+  <BaseButton sx={{ right: "27px" }} onClick={onClick} disabled={!enabled}>
     <svg
       style={{ width: "100%", height: "100%" }}
       viewBox="0 0 238.003 238.003"
@@ -56,7 +49,7 @@ export const NextButton = ({ enabled, onClick }: ButtonProp) => (
   </BaseButton>
 );
 
-interface DotProps extends ButtonProps {
+interface DotProps {
   selected: "1" | "0";
 }
 
