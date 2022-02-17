@@ -1,60 +1,60 @@
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import ChatIcon from "@mui/icons-material/Chat";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import Typography from "@mui/material/Typography";
-import { buildWhatsAppURL } from "../../../hooks/whatsapp";
-import { styled } from "../../../styles/Theme";
-import SiteContainer from "../../atoms/SiteContainer";
-import Button from "../../atoms/Button";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import ChatIcon from '@mui/icons-material/Chat'
+import CameraAltIcon from '@mui/icons-material/CameraAlt'
+import Typography from '@mui/material/Typography'
+import { buildWhatsAppURL } from '../../../hooks/whatsapp'
+import { styled } from '../../../styles/Theme'
+import SiteContainer from '../../atoms/SiteContainer'
+import Button from '../../atoms/Button'
 
-const Root = styled("div")({
-  padding: "120px 0",
-});
+const Root = styled('div')({
+  padding: '120px 0',
+})
 
-const Grid = styled("div")(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  columnGap: "32px",
-  rowGap: "60px",
+const Grid = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  columnGap: '32px',
+  rowGap: '60px',
 
-  [theme.breakpoints.down("md")]: {
-    gridTemplateColumns: "1fr",
+  [theme.breakpoints.down('md')]: {
+    gridTemplateColumns: '1fr',
   },
-}));
+}))
 
-const Card = styled("div")({
-  position: "relative",
-  padding: "60px 20px",
+const Card = styled('div')({
+  position: 'relative',
+  padding: '60px 20px',
   border: `5px solid rgba(173, 127, 95, 0.5)`,
-  borderRadius: "5px",
-  textAlign: "center",
-});
+  borderRadius: '5px',
+  textAlign: 'center',
+})
 
-const CardIcon = styled("span")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  position: "absolute",
-  top: "-30px",
-  left: "calc(50% - 38px)", // - (size (60/2) + padding (16/2))
+const CardIcon = styled('span')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  position: 'absolute',
+  top: '-30px',
+  left: 'calc(50% - 38px)', // - (size (60/2) + padding (16/2))
   background: theme.palette.background.paper,
-  padding: "0 16px",
+  padding: '0 16px',
   height: 60,
-}));
+}))
 
 const Title = styled(Typography)({
-  color: "#675444",
-  fontSize: "1.8em",
+  color: '#675444',
+  fontSize: '1.8em',
   fontWeight: 700,
-  marginBottom: "32px",
-});
+  marginBottom: '32px',
+})
 
-const iconProps = { color: "rgba(153, 96, 55, 1)", fontSize: 60 };
+const iconProps = { color: 'rgba(153, 96, 55, 1)', fontSize: 60 }
 
 export default function ContactCallout() {
   const whatsAppURL = buildWhatsAppURL(
-    "Olá! Vi no site sobre a Nossa Matilha e gostaria de saber mais informações."
-  );
+    'Olá! Vi no site sobre a Nossa Matilha e gostaria de saber mais informações.'
+  )
 
   return (
     <Root>
@@ -97,5 +97,5 @@ export default function ContactCallout() {
         </Grid>
       </SiteContainer>
     </Root>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import PetsIcon from "@mui/icons-material/Pets";
-import Button from "../atoms/Button";
+import styled from '@emotion/styled'
+import PetsIcon from '@mui/icons-material/Pets'
+import Button from '../atoms/Button'
 
 const Root = styled.header`
   position: absolute;
@@ -9,7 +9,7 @@ const Root = styled.header`
   right: 16px;
   display: flex;
   justify-content: flex-end;
-`;
+`
 
 export default function SiteNavbar() {
   return (
@@ -18,5 +18,5 @@ export default function SiteNavbar() {
         Área do cliente
       </Button>
     </Root>
-  );
+  )
 }

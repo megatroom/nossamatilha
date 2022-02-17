@@ -1,39 +1,39 @@
-import Button, { ButtonProps } from "@mui/material/Button";
-import { styled } from "../../styles/Theme";
+import Button, { ButtonProps } from '@mui/material/Button'
+import { styled } from '../../styles/Theme'
 
 interface StyledButtonProps {
-  hero?: string;
+  hero?: string
 }
 
 const StyledButton = styled(Button)<StyledButtonProps>(({ hero }) => {
-  if (hero === "1") {
+  if (hero === '1') {
     return {
-      fontSize: "17px",
-      borderRadius: "12px",
-      padding: "15px 32px",
-      fontWeight: "700",
-    };
+      fontSize: '17px',
+      borderRadius: '12px',
+      padding: '15px 32px',
+      fontWeight: '700',
+    }
   }
 
-  return {};
-});
+  return {}
+})
 
 interface Props extends ButtonProps {
-  isHero?: boolean;
-  target?: string;
+  isHero?: boolean
+  target?: string
 }
 
 export default function MyButton({
   isHero = false,
-  variant = "contained",
+  variant = 'contained',
   ...rest
 }: Props) {
   return (
     <StyledButton
       {...rest}
       variant={variant}
-      hero={isHero ? "1" : "0"}
+      hero={isHero ? '1' : '0'}
       disableElevation
     />
-  );
+  )
 }
