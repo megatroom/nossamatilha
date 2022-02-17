@@ -1,37 +1,37 @@
-import styled from "@emotion/styled";
+import { styled } from "../../styles/Theme";
 import Typography, { TypographyProps } from "@mui/material/Typography";
 
 interface RootProps {
-  marginBottom?: number;
+  marginbottom?: number;
 }
 
-const Root = styled.div`
-  position: relative;
-  padding-bottom: 20px;
-  margin-bottom: ${({ marginBottom = 60 }: RootProps) => marginBottom}px;
+const Root = styled("div")<RootProps>(({ marginbottom = 60 }) => ({
+  position: "relative",
+  paddingBottom: "20px",
+  marginBottom: marginbottom,
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 40px;
-    border-radius: 3px;
-    width: 60px;
-    height: 3px;
-    background-color: #c8cdd6;
-  }
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: "100%",
+    left: "40px",
+    borderRadius: "3px",
+    width: "60px",
+    height: "3px",
+    backgroundColor: "#c8cdd6",
+  },
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    border-radius: 3px;
-    width: 30px;
-    height: 3px;
-    background-color: #c8cdd6;
-  }
-`;
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    top: "100%",
+    left: "0",
+    borderRadius: "3px",
+    width: "30px",
+    height: "3px",
+    backgroundColor: "#c8cdd6",
+  },
+}));
 
 interface TitleProps extends TypographyProps {
   reverse: string;
@@ -55,7 +55,7 @@ export default function SiteSectionTitle({
   reverse,
 }: Props) {
   return (
-    <Root id={id} marginBottom={marginBottom}>
+    <Root id={id} marginbottom={marginBottom}>
       <Title variant="h3" reverse={reverse ? "1" : "0"}>
         {children}
       </Title>
