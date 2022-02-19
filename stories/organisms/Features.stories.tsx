@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import Features from '../../components/organisms/Features'
+import Features from 'components/organisms/Features'
 
 export default {
   title: 'Organisms/Features',

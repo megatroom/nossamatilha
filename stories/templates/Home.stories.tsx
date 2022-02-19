@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
-import Home from '../../components/templates/site/Home'
+import Home from 'components/templates/site/Home'
 
 export default {
   title: 'Templates/Home',

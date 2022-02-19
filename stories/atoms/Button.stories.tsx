@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react'
 import Stack from '@mui/material/Stack'
 
 // import { Button } from './Button';
-import Button from '../../components/atoms/Button'
+import Button from 'components/atoms/Button'
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
