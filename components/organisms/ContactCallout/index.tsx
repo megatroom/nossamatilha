@@ -4,7 +4,7 @@ import ChatIcon from '@mui/icons-material/Chat'
 import CameraAltIcon from '@mui/icons-material/CameraAlt'
 import Typography from '@mui/material/Typography'
 import { buildWhatsAppURL } from '../../../hooks/whatsapp'
-import { styled } from '../../../styles/Theme'
+import { styled } from 'styles/Theme'
 import SiteContainer from '../../atoms/SiteContainer'
 import Button from '../../atoms/Button'
 

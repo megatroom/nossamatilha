@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Typography from '@mui/material/Typography'
-import { styled } from '../../../styles/Theme'
+import { styled } from 'styles/Theme'
 import SiteSectionTitle from '../../molecules/SiteSectionTitle'
 import SiteContainer from '../../atoms/SiteContainer'
 import LinkButton from '../../atoms/LinkButton'

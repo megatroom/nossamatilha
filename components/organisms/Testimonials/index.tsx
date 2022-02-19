@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { styled } from '../../../styles/Theme'
+import { styled } from 'styles/Theme'
 import SiteContainer from '../../atoms/SiteContainer'
 import SiteSectionTitle from '../../molecules/SiteSectionTitle'
 import BgImage from './img/f74665c2-ae13-4115-8a49-6ed4118a169d.jpeg'

@@ -1,6 +1,6 @@
 import * as NextImage from 'next/image'
 import { ThemeProvider as Emotion10ThemeProvider } from 'emotion-theming'
-import Theme, { defaultTheme } from '../styles/Theme'
+import Theme, { defaultTheme } from 'styles/Theme'
 
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { styled } from '../../../styles/Theme'
+import { styled } from 'styles/Theme'
 // import { useTheme } from "@mui/material/styles";
 // import useMediaQuery from "@mui/material/useMediaQuery";
 // import PetsIcon from "@mui/icons-material/Pets";
