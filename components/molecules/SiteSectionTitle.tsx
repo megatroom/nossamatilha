@@ -1,4 +1,4 @@
-import { styled } from '../../styles/Theme'
+import { styled } from 'styles/Theme'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
 interface RootProps {

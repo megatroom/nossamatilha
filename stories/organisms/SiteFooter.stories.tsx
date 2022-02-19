@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import SiteFooter from '../../components/organisms/SiteFooter'
+import SiteFooter from 'components/organisms/SiteFooter'
 
 export default {
   title: 'Organisms/SiteFooter',

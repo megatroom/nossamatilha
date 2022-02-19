@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { styled } from '../../../styles/Theme'
+import { styled } from 'styles/Theme'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import SiteContainer from '../../atoms/SiteContainer'

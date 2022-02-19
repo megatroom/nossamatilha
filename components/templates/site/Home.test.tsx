@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Home from './Home'
-import Theme from '../../../styles/Theme'
+import Theme from 'styles/Theme'
 
 it('should render call to action', () => {
   render(

@@ -1,4 +1,4 @@
-import { styled } from '../../styles/Theme'
+import { styled } from 'styles/Theme'
 
 const SvgBox = styled('svg')({
   position: 'absolute',

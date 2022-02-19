@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Home from '../components/templates/site/Home'
+import Home from 'components/templates/site/Home'
 
 const HomePage: NextPage = () => {
   return (

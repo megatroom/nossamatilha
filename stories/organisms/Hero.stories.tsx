@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import Hero from '../../components/organisms/Hero'
+import Hero from 'components/organisms/Hero'
 
 export default {
   title: 'Organisms/Hero',

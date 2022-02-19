@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '@mui/material/Button'
-import { styled } from '../../styles/Theme'
+import { styled } from 'styles/Theme'
 
 interface StyledButtonProps {
   hero?: string

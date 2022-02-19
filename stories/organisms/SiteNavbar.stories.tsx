@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import SiteNavbar from '../../components/organisms/SiteNavbar'
+import SiteNavbar from 'components/organisms/SiteNavbar'
 
 export default {
   title: 'Organisms/SiteNavbar',
