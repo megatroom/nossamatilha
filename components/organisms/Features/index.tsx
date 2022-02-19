@@ -9,7 +9,7 @@ import Button from '../../atoms/Button'
 import Block1 from './img/adestramento-02.jpeg'
 import Block2 from './img/pet-sitter-02.jpeg'
 import Block3 from './img/passeio-01.jpg'
-import { buildWhatsAppURL } from '../../../hooks/whatsapp'
+import { buildWhatsAppURL } from 'hooks/whatsapp'
 
 interface Item {
   id: number
