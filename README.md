@@ -22,4 +22,5 @@ You can create the `.env.local` file with this example:
 
 ```bash
 NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER=5511999999999
+NEXT_PUBLIC_ANALYTICS_ENABLED=false
 ```
