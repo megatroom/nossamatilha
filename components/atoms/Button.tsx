@@ -1,11 +1,13 @@
-import Button, { ButtonProps } from '@mui/material/Button'
+import React from 'react'
+import MuiButton, { ButtonProps as MuiButtonProps } from '@mui/material/Button'
 import { styled } from 'styles/Theme'
 
 interface StyledButtonProps {
   hero?: string
+  ref?: React.ForwardedRef<HTMLButtonElement>
 }
 
-const StyledButton = styled(Button)<StyledButtonProps>(({ hero }) => {
+const StyledButton = styled(MuiButton)<StyledButtonProps>(({ hero }) => {
   if (hero === '1') {
     return {
       fontSize: '17px',
@@ -18,22 +20,23 @@ const StyledButton = styled(Button)<StyledButtonProps>(({ hero }) => {
   return {}
 })
 
-interface Props extends ButtonProps {
+export interface ButtonProps extends MuiButtonProps {
   isHero?: boolean
   target?: string
 }
 
-export default function MyButton({
-  isHero = false,
-  variant = 'contained',
-  ...rest
-}: Props) {
+export default React.forwardRef(function Button(
+  { isHero = false, variant = 'contained', ...rest }: ButtonProps,
+  ref
+) {
   return (
     <StyledButton
       {...rest}
+      ref={ref as React.ForwardedRef<HTMLButtonElement>}
+      role={undefined}
       variant={variant}
       hero={isHero ? '1' : '0'}
       disableElevation
     />
   )
-}
+})
