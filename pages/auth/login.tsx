@@ -11,6 +11,7 @@ import Form from 'components/atoms/form/Form'
 import TextField from 'components/atoms/form/TextField'
 import Button from 'components/atoms/Button'
 import { LoginPayload, postLogin } from 'services/auth'
+import { initGoogleAuth } from 'hooks/auth'
 
 export default function Login() {
   const { control, handleSubmit } = useForm<LoginPayload>()
@@ -19,6 +20,10 @@ export default function Login() {
     postLogin(data).then((res) => {
       console.log({ res })
     })
+  }
+
+  const handleGoogleLogin = () => {
+    initGoogleAuth()
   }
 
   return (
@@ -60,6 +65,7 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            <Button onClick={handleGoogleLogin}>Entrar com o Google</Button>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Controller
                 name="email"
