@@ -2,92 +2,166 @@ import {
   User,
   GoogleAuthProvider,
   getAuth,
-  signInWithPopup,
+  signInWithRedirect,
   signOut,
+  getRedirectResult,
+  Auth,
+  connectAuthEmulator,
 } from 'firebase/auth'
-import { initFirebaseApp } from './_firebase'
+import { useRouter } from 'next/router'
+import { initFirebaseApp } from './database/firebase'
+import config from './config'
+import { useEffect, useState } from 'react'
 
-console.log('----- setup Google Auth ------')
+export const ADMIN_ROUTER_PATH = '/admin'
+export const LOGIN_ROUTER_PATH = '/auth/login'
 
-const handleLoggedUser = (user: User) => {
-  const { displayName, email, emailVerified, photoURL } = user
-
-  user.getIdToken().then((jwtToken) => {
-    const model = {
-      providerPlatform: 'firebase',
-      providerId: 'google',
-      jwtToken,
-      displayName,
-      email,
-      emailVerified,
-      photoURL,
-    }
-
-    console.log({ user, model })
-  })
+export interface AuthUser {
+  providerPlatform: 'firebase'
+  providerId: 'google'
+  jwtToken: string
+  displayName: string
+  email: string
+  emailVerified: boolean
+  photoURL?: string
 }
 
-export const initGoogleAuth = () => {
-  console.log('----- init Google Auth ------')
+const handleLoggedUser = async (user: User): Promise<AuthUser> => {
+  const { displayName, email, emailVerified, photoURL } = user
+
+  const jwtToken = await user.getIdToken()
+
+  if (!email) {
+    throw Error('User without email')
+  }
+
+  const result: AuthUser = {
+    providerPlatform: 'firebase',
+    providerId: 'google',
+    jwtToken,
+    displayName: displayName || 'Guest',
+    email,
+    emailVerified,
+  }
+
+  if (photoURL) {
+    result.photoURL = photoURL
+  }
+
+  return result
+}
+
+let authSingleton: Auth | undefined
+const buildAuth = (): Auth => {
+  if (authSingleton) {
+    return authSingleton
+  }
 
   const app = initFirebaseApp()
-  const auth = getAuth(app)
-  auth.languageCode = 'pt-BR'
+  authSingleton = getAuth(app)
+
+  const {
+    firebase: { emulators },
+  } = config()
+
+  authSingleton.languageCode = 'pt-BR'
+
+  if (emulators.enabled) {
+    connectAuthEmulator(authSingleton, emulators.url)
+  }
+
+  return authSingleton
+}
+
+const getCurrentUser = async (): Promise<AuthUser> => {
+  const auth = buildAuth()
 
   const { currentUser } = auth
 
   if (currentUser) {
-    console.log('----- user alread logged ------')
-    handleLoggedUser(currentUser)
-    return
+    return await handleLoggedUser(currentUser)
   }
 
-  const provider = new GoogleAuthProvider()
+  const redirectResult = await getRedirectResult(auth)
 
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      console.log('----- Google Auth success ------')
-      console.log({ result })
+  if (redirectResult) {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    // const credential = GoogleAuthProvider.credentialFromResult(redirectResult)
+    // const token = credential?.accessToken
+    // console.log({ token })
 
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result)
+    return handleLoggedUser(redirectResult.user)
+  }
 
-      console.log({ credential })
-
-      if (credential) {
-        const token = credential.accessToken
-
-        console.log({ token })
-      }
-
-      handleLoggedUser(result.user)
-    })
-    .catch((error) => {
-      console.log('----- Google Auth fail ------')
-      console.log({ error })
-
-      // Handle Errors here.
-      const errorCode = error.code
-      const errorMessage = error.message
-      // The email of the user's account used.
-      const email = error.email
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error)
-      // ...
-
-      console.log({ errorCode, errorMessage, email, credential })
-    })
+  throw new Error('User not found')
 }
 
-export const initSignOut = () => {
-  const app = initFirebaseApp()
-  const auth = getAuth(app)
+/**
+ * Indicates whether the user is authenticated.
+ */
+export const isAuthenticate = async (): Promise<boolean> => {
+  try {
+    if (await getCurrentUser()) {
+      return true
+    }
+  } catch (error) {
+    // Do nothing
+  }
 
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-    })
-    .catch((error) => {
-      // An error happened.
-    })
+  return false
+}
+
+/**
+ * Start the sign in process with Google provider.
+ */
+export const initGoogleAuth = async () => {
+  const provider = new GoogleAuthProvider()
+  const auth = buildAuth()
+
+  await signInWithRedirect(auth, provider)
+}
+
+/**
+ * Sign out the current user.
+ */
+export const initSignOut = async (): Promise<void> => {
+  const auth = buildAuth()
+
+  await signOut(auth)
+}
+
+export interface UseAuth {
+  user?: AuthUser
+  loading: boolean
+}
+
+/**
+ * Hook to get the current user.
+ * Use this hook to ensure that the user is logged in.
+ *
+ * @remarks
+ * The hook start with `loading` equals `true` until the authentication is checked.
+ * When it's done, the `user` will be fulfilled with the user data
+ * and then the `loading` is set to false.
+ *
+ * If the user is not logged in, the user will be redirected to the login page.
+ *
+ */
+export const useAuth = (): UseAuth => {
+  const [user, setUser] = useState<AuthUser | undefined>()
+  const [loading, setLoading] = useState<boolean>(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    getCurrentUser()
+      .then((currentUser) => {
+        setUser(currentUser)
+        setLoading(false)
+      })
+      .catch(() => {
+        router.push(LOGIN_ROUTER_PATH)
+      })
+  }, [router])
+
+  return { user, loading }
 }

@@ -1,10 +1,39 @@
-export default function config() {
+interface AppConfig {
+  whatsApp: {
+    baseURL: string
+    phoneNumber: string
+  }
+  firebase: {
+    emulators: {
+      enabled: boolean
+      url: string
+    }
+    analytics: {
+      enabled: boolean
+    }
+    config: {
+      apiKey: string
+      authDomain: string
+      projectId: string
+      storageBucket: string
+      messagingSenderId: string
+      appId: string
+      measurementId: string
+    }
+  }
+}
+
+export default function config(): AppConfig {
   return {
     whatsApp: {
       baseURL: 'https://wa.me/',
-      phoneNumber: process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER,
+      phoneNumber: process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER || '',
     },
     firebase: {
+      emulators: {
+        enabled: process.env.NEXT_PUBLIC_FIREBASE_EMULATORS_ENABLED === 'true',
+        url: 'http://localhost:9099',
+      },
       analytics: {
         enabled: process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === 'true',
       },

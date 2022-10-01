@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Analytics, getAnalytics, logEvent } from 'firebase/analytics'
 import config from './config'
-import { initFirebaseApp } from './_firebase'
+import { initFirebaseApp } from './database/firebase'
 
 // Singleton
 let analytics: Analytics | undefined

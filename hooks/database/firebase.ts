@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import config from './config'
+import config from '../config'
 
 let app: FirebaseApp | null = null
 

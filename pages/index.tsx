@@ -1,16 +1,11 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Home from 'components/templates/site/Home'
-import { useAnalytics } from 'hooks/analytics'
+import PageHead from 'components/organisms/PageHead'
 
 const HomePage: NextPage = () => {
-  useAnalytics()
-
   return (
     <>
-      <Head>
-        <title>Nossa Matilha</title>
-      </Head>
+      <PageHead />
 
       <Home />
     </>

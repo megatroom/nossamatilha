@@ -1,8 +1,12 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useAnalytics } from 'hooks/analytics'
+
 import Theme from 'styles/Theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useAnalytics()
+
   return (
     <Theme>
       <Head>
