@@ -113,6 +113,11 @@ const updateLoginUser = async (
     updatePayload.emailVerified = userPayload.emailVerified
   }
 
+  if (persistedUser.providers.length !== userPayload.providers.length) {
+    hasChanges = true
+    updatePayload.providers = userPayload.providers
+  }
+
   if (hasChanges) {
     updatePayload.updatedAt = serverTimestamp() as Timestamp
   }
