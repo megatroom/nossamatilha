@@ -93,12 +93,14 @@ const AdminNavbar = ({ user, logout }: Props) => {
             }}
           >
             <Link href="/admin">
-              <Image
-                src={LogoImg}
-                alt="Nossa Matilha"
-                width={163}
-                height={60}
-              />
+              <a>
+                <Image
+                  src={LogoImg}
+                  alt="Nossa Matilha"
+                  width={163}
+                  height={60}
+                />
+              </a>
             </Link>
           </Box>
 
