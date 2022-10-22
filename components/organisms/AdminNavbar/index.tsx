@@ -35,6 +35,14 @@ interface Props {
   logout: () => void
 }
 
+const Brand = () => (
+  <Link href="/admin">
+    <a>
+      <Image src={LogoImg} alt="Nossa Matilha" width={163} height={60} />
+    </a>
+  </Link>
+)
+
 const AdminNavbar = ({ user, logout }: Props) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -92,16 +100,7 @@ const AdminNavbar = ({ user, logout }: Props) => {
               cursor: 'pointer',
             }}
           >
-            <Link href="/admin">
-              <a>
-                <Image
-                  src={LogoImg}
-                  alt="Nossa Matilha"
-                  width={163}
-                  height={60}
-                />
-              </a>
-            </Link>
+            <Brand />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -155,7 +154,7 @@ const AdminNavbar = ({ user, logout }: Props) => {
               mb: 1,
             }}
           >
-            <Image src={LogoImg} alt="Nossa Matilha" width={163} height={60} />
+            <Brand />
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
