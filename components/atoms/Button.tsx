@@ -56,7 +56,9 @@ export default forwardRef(function Button(
   ref
 ) {
   if (loading) {
-    return <Skeleton variant="rounded" {...getSkeletonSize(size)} />
+    return (
+      <Skeleton variant="rounded" {...getSkeletonSize(size)} sx={rest.sx} />
+    )
   }
 
   return (

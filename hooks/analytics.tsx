@@ -1,26 +1,20 @@
 import { useEffect } from 'react'
-import { Analytics, getAnalytics, logEvent } from 'firebase/analytics'
-import config from './config'
-import { initFirebaseApp } from './database/firebase'
+import { logEvent } from 'firebase/analytics'
+import config from '../config'
+import { getFirebaseAnalytics } from './services/database/firebase'
 
 // Singleton
-let analytics: Analytics | undefined
 let isEnabled = false
 
 const logger = (...args: any[]) => console.log('[analytics]', ...args)
 
 export const initAnalytics = () => {
-  if (analytics) {
-    return
-  }
-
   const { analytics: analyticsConfig } = config().firebase
 
   isEnabled = analyticsConfig.enabled
 
   if (isEnabled) {
-    const app = initFirebaseApp()
-    analytics = getAnalytics(app)
+    getFirebaseAnalytics()
     logger('initialized')
   } else {
     logger('disabled')
@@ -29,6 +23,8 @@ export const initAnalytics = () => {
 
 export const logAnalyticEvent = (eventName: string, params?: object) => {
   if (isEnabled) {
+    const analytics = getFirebaseAnalytics()
+
     if (analytics) {
       logEvent(analytics, eventName, params)
     } else {

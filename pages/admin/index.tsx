@@ -2,11 +2,12 @@ import type { NextPage } from 'next'
 import PageHead from 'components/organisms/PageHead'
 import Home from 'components/templates/admin/Home'
 import { useAuth } from 'hooks/auth'
+import AdminLayout from 'components/templates/admin/AdminLayout'
 
 const HomePage: NextPage = () => {
-  const { loading, user } = useAuth()
+  const { isAuthenticating, user } = useAuth()
 
-  if (loading) {
+  if (isAuthenticating) {
     return null
   }
 
@@ -14,7 +15,9 @@ const HomePage: NextPage = () => {
     <>
       <PageHead title="Admin" />
 
-      <Home user={user} />
+      <AdminLayout>
+        <Home user={user} />
+      </AdminLayout>
     </>
   )
 }

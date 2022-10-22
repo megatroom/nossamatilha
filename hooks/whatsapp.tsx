@@ -1,4 +1,4 @@
-import config from './config'
+import config from '../config'
 
 export const buildWhatsAppURL = (text: string) => {
   const { baseURL, phoneNumber } = config().whatsApp

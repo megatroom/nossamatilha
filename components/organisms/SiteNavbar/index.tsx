@@ -6,6 +6,7 @@ import PetsIcon from '@mui/icons-material/Pets'
 import RouterButton from '../../atoms/RouterButton'
 import SiteContainer from '../../atoms/SiteContainer'
 import LogoImg from './img/nossa-matilha-navbar-logo.png'
+import { DbUser } from 'hooks/services/users'
 
 const Root = styled('header')({
   padding: '8px 0',
@@ -17,9 +18,15 @@ const Content = styled('div')({
   alignItems: 'center',
 })
 
-export default function SiteNavbar() {
+interface SiteNavbarProps {
+  user?: DbUser
+}
+
+export default function SiteNavbar({ user }: SiteNavbarProps) {
   const theme = useTheme()
   const isDownSM = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const adminPath = user ? '/admin' : '/auth/login'
 
   return (
     <Root>
@@ -35,9 +42,9 @@ export default function SiteNavbar() {
           </nav>
           <nav>
             <RouterButton
-              href="/auth/login"
               variant="outlined"
               startIcon={<PetsIcon />}
+              href={adminPath}
             >
               {isDownSM ? 'Cliente' : 'Área do cliente'}
             </RouterButton>

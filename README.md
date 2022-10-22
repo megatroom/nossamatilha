@@ -6,6 +6,39 @@ Source code for [nossamatilhadogs.com.br](https://nossamatilhadogs.com.br).
 
 ## Development
 
+### File Structure
+
+```mermaid
+graph TD
+    subgraph Next.js
+        app(_app)     
+        pages
+    end
+
+    app --> pages
+    app --> theme
+    app --> hooks
+    pages --> templates
+    pages --> hooks
+
+    subgraph components
+        templates --> organisms
+        organisms --> molecules
+        molecules --> atoms
+    end
+
+    subgraph business rules
+        hooks --> services
+        services --> database
+        services --> clients
+        hooks --> adapters
+    end
+
+    subgraph styles
+        theme
+    end
+```
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/)
@@ -54,6 +87,16 @@ yarn emulators:start
 ```
 
 The emulator will run in [http://localhost:4000](http://localhost:4000).
+
+### Firestore
+
+The Firestore rules is in `firestore.rules` file. To deploy the changes you must run:
+
+```bash
+yarn deploy:rules
+```
+
+The index is in `firestore.indexes.json` file.
 
 ### Dev Server
 

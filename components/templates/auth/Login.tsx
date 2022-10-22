@@ -11,12 +11,20 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import TwitterIcon from '@mui/icons-material/Twitter'
 
 interface LoginProps {
-  error?: string
-  loading: boolean
+  onFacebookAuth: () => void
   onGoogleAuth: () => void
+  onTwitterAuth: () => void
+  loading: boolean
+  error?: string
 }
 
-export default function Login({ error, loading, onGoogleAuth }: LoginProps) {
+export default function Login({
+  onFacebookAuth,
+  onGoogleAuth,
+  onTwitterAuth,
+  loading,
+  error,
+}: LoginProps) {
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <Grid
@@ -52,14 +60,33 @@ export default function Login({ error, loading, onGoogleAuth }: LoginProps) {
             Sign in
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
-          <Box my={3}>
+          <Box my={3} sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Button
+              onClick={onFacebookAuth}
+              loading={loading}
+              icon={<FacebookIcon />}
+              size="large"
+              sx={{ mb: 2 }}
+            >
+              Entrar com o Facebook
+            </Button>
             <Button
               onClick={onGoogleAuth}
               loading={loading}
               icon={<GoogleIcon />}
               size="large"
+              sx={{ mb: 2 }}
             >
               Entrar com o Google
+            </Button>
+            <Button
+              onClick={onTwitterAuth}
+              loading={loading}
+              icon={<TwitterIcon />}
+              size="large"
+              sx={{ mb: 2 }}
+            >
+              Entrar com o Twitter
             </Button>
           </Box>
         </Box>

@@ -1,10 +1,11 @@
-import InputBase, { InputBaseProps } from '@mui/material/InputBase'
-import { alpha } from '@mui/material/styles'
-import { styled } from 'styles/Theme'
-import { forwardRef } from 'react'
 import FormControl, { FormControlProps } from './FormControl'
+import { forwardRef } from 'react'
+import { styled } from 'styles/Theme'
+import { alpha } from '@mui/material/styles'
+import Select, { SelectProps } from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 
-const StyledInput = styled(InputBase)(({ theme, error }) => ({
+const StyledSelect = styled(Select)(({ theme, error }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
   },
@@ -38,12 +39,19 @@ const StyledInput = styled(InputBase)(({ theme, error }) => ({
       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
       borderColor: theme.palette.primary.main,
     },
-
-    '&:read-only': {
-      backgroundColor: '#e9ecef',
-    },
   },
 }))
+
+export interface SelectOption<Value> {
+  value: Value
+  label: string
+}
+
+interface SelectFieldProps<Value>
+  extends Omit<SelectProps, 'label'>,
+    FormControlProps {
+  options?: SelectOption<Value>[]
+}
 
 type RefType =
   | ((instance: HTMLDivElement | null) => void)
@@ -51,14 +59,18 @@ type RefType =
   | null
   | undefined
 
-interface Props extends InputBaseProps, FormControlProps {
-  minLength?: number
-}
-
-const TextField = (
-  { id, name, label, helperText, fieldError, minLength, ...rest }: Props,
+function SelectField<Value>(
+  {
+    id,
+    name,
+    label,
+    helperText,
+    fieldError,
+    options = [],
+    ...rest
+  }: SelectFieldProps<Value>,
   ref: RefType
-) => {
+) {
   return (
     <FormControl
       id={id}
@@ -66,18 +78,26 @@ const TextField = (
       label={label}
       helperText={helperText}
       fieldError={fieldError}
-      errorOption={{ minLength }}
       renderField={({ fieldId, hasError }) => (
-        <StyledInput
+        <StyledSelect
           {...rest}
+          labelId={`${fieldId}-label`}
           error={hasError}
           id={fieldId}
-          name={name}
           ref={ref}
-        />
+        >
+          {options.map((option) => (
+            <MenuItem
+              key={`${fieldId}-option-${option.value as string}`}
+              value={option.value as string}
+            >
+              {option.label}
+            </MenuItem>
+          ))}
+        </StyledSelect>
       )}
     />
   )
 }
 
-export default forwardRef(TextField)
+export default forwardRef(SelectField)

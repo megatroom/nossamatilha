@@ -1,4 +1,6 @@
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 import Image from 'next/image'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -14,19 +16,29 @@ import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
 
-import { AuthUser } from 'hooks/auth'
 import LogoImg from './img/nossa-matilha-navbar-logo.png'
+import { DbUser } from 'hooks/services/users'
 
-const pages = ['Products', 'Pricing', 'Blog']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
-
-interface Props {
-  user?: AuthUser
+interface MenuOption {
+  label: string
+  linkTo?: string
+  onClick?: () => void
 }
 
-const AdminNavbar = ({ user }: Props) => {
+interface MenuOptions {
+  mainMenu: MenuOption[]
+  settingsMenu: MenuOption[]
+}
+
+interface Props {
+  user?: DbUser
+  logout: () => void
+}
+
+const AdminNavbar = ({ user, logout }: Props) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const router = useRouter()
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -43,12 +55,51 @@ const AdminNavbar = ({ user }: Props) => {
     setAnchorElUser(null)
   }
 
+  const handleMenuOnClick = (option: MenuOption) => {
+    option.onClick?.()
+    if (option.linkTo) {
+      router.push(option.linkTo)
+    }
+  }
+
+  const { mainMenu, settingsMenu } = useMemo<MenuOptions>(() => {
+    return {
+      mainMenu: [
+        {
+          label: 'Usuários',
+          linkTo: '/admin/users',
+        },
+      ],
+      settingsMenu: [
+        {
+          label: 'Sair',
+          onClick: () => {
+            logout()
+          },
+        },
+      ],
+    }
+  }, [logout])
+
   return (
     <AppBar position="static" color="inherit">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 2 }}>
-            <Image src={LogoImg} alt="Nossa Matilha" width={163} height={60} />
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              mr: 2,
+              cursor: 'pointer',
+            }}
+          >
+            <Link href="/admin">
+              <Image
+                src={LogoImg}
+                alt="Nossa Matilha"
+                width={163}
+                height={60}
+              />
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -80,9 +131,15 @@ const AdminNavbar = ({ user }: Props) => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {mainMenu.map((option) => (
+                <MenuItem
+                  key={`main-menu-${option.label}`}
+                  onClick={() => {
+                    handleCloseNavMenu()
+                    handleMenuOnClick(option)
+                  }}
+                >
+                  <Typography textAlign="center">{option.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -100,13 +157,16 @@ const AdminNavbar = ({ user }: Props) => {
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {mainMenu.map((option) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={`button-menu-${option.label}`}
+                onClick={() => {
+                  handleCloseNavMenu()
+                  handleMenuOnClick(option)
+                }}
                 sx={{ my: 2, display: 'block' }}
               >
-                {page}
+                {option.label}
               </Button>
             ))}
           </Box>
@@ -138,9 +198,15 @@ const AdminNavbar = ({ user }: Props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                {settingsMenu.map((setting) => (
+                  <MenuItem
+                    key={`settings-menu-${setting.label}`}
+                    onClick={() => {
+                      handleCloseUserMenu()
+                      handleMenuOnClick(setting)
+                    }}
+                  >
+                    <Typography textAlign="center">{setting.label}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

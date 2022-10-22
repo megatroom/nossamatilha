@@ -1,15 +1,20 @@
-import SiteNavbar from '../../organisms/SiteNavbar'
-import Hero from '../../organisms/Hero'
-import Features from '../../organisms/Features'
-import Footer from '../../organisms/SiteFooter'
-import Testimonials from '../../organisms/Testimonials'
-import ContactCallout from '../../organisms/ContactCallout'
+import SiteNavbar from 'components/organisms/SiteNavbar'
+import Hero from 'components/organisms/Hero'
+import Features from 'components/organisms/Features'
+import Footer from 'components/organisms/SiteFooter'
+import Testimonials from 'components/organisms/Testimonials'
+import ContactCallout from 'components/organisms/ContactCallout'
 import AddressWidget from '../../organisms/AddressWidget'
+import { DbUser } from 'hooks/services/users'
 
-export default function Home() {
+interface HomeProps {
+  user?: DbUser
+}
+
+export default function Home({ user }: HomeProps) {
   return (
     <>
-      <SiteNavbar />
+      <SiteNavbar user={user} />
       <Hero />
       <main>
         <Features />
