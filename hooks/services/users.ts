@@ -14,6 +14,7 @@ import {
 } from 'firebase/firestore'
 import { getFirebaseFirestore } from './database/firebase'
 
+export const EMPTY_DISPLAY_NAME_PLACEHOLDER = 'Guest'
 const USERS_COLLECTION_NAME = 'users'
 
 export enum DBUserProviderCode {
@@ -40,6 +41,7 @@ export interface DBUserProvider {
 }
 
 export enum DBUserRole {
+  blocked = 'blocked',
   guest = 'guest',
   customer = 'customer',
   employee = 'employee',
@@ -73,8 +75,6 @@ const getCollection = () => {
 }
 
 const createUser = async (userPayload: DbUserPayload): Promise<void> => {
-  console.log('createUser with', { userPayload })
-
   const { uid, ...payload } = userPayload
   const currentDateTime = serverTimestamp()
 
@@ -103,7 +103,11 @@ const updateLoginUser = async (
     updatePayload.photoURL = userPayload.photoURL
   }
 
-  if (!persistedUser.displayName && userPayload.displayName) {
+  if (
+    (!persistedUser.displayName ||
+      persistedUser.displayName === EMPTY_DISPLAY_NAME_PLACEHOLDER) &&
+    userPayload.displayName
+  ) {
     hasChanges = true
     updatePayload.displayName = userPayload.displayName
   }
@@ -123,6 +127,20 @@ const updateLoginUser = async (
   }
 
   await updateDoc(docRef, updatePayload)
+}
+
+export type UpdateUserPayload = Pick<DbUser, 'role'>
+
+export const updateUserByAdmin = async (
+  uid: string,
+  userPayload: UpdateUserPayload
+): Promise<void> => {
+  const docRef = doc(getCollection(), uid)
+
+  await updateDoc(docRef, {
+    ...userPayload,
+    updatedAt: serverTimestamp() as Timestamp,
+  })
 }
 
 export const getUser = async (uid: string): Promise<DbUser> => {
@@ -165,7 +183,6 @@ export const findUsers = async (): Promise<DbUser[]> => {
   const querySnapshot = await getDocs(users)
 
   querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data())
     result.push({
       id: doc.id,
       ...doc.data(),

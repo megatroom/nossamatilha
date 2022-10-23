@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { SnackbarProvider } from 'notistack'
 import { useAnalytics } from 'hooks/analytics'
 import ThemeProvider from 'styles/Theme'
 import { AuthProvider } from 'hooks/auth'
@@ -15,9 +16,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
+      <SnackbarProvider
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        maxSnack={5}
+      >
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   )
 }

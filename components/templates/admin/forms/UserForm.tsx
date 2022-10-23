@@ -8,12 +8,14 @@ import Button from 'components/atoms/Button'
 import TextField from 'components/atoms/form/TextField'
 import CheckboxField from 'components/atoms/form/CheckboxField'
 import { useUserDetail } from 'hooks/users'
-import ProviderForm from 'components/organisms/ProviderForm'
+import UserProviderForm from 'components/organisms/UserProviderForm'
 import Paper, { PaperTitle } from 'components/atoms/Paper'
 import { useMemo } from 'react'
 import { adaptDbUserToIUser, getRoleOptions } from 'hooks/adapters/users'
 import SelectField, { SelectOption } from 'components/atoms/form/SelectField'
-import { DBUserRole } from 'hooks/services/users'
+import { DBUserRole, UpdateUserPayload } from 'hooks/services/users'
+import UserPhotos from 'components/organisms/UserPhotos'
+import AlertDialog from 'components/atoms/AlertDialog'
 
 interface Props {
   /**
@@ -29,11 +31,18 @@ interface Props {
 
 export default function UserForm({ isEditing, id }: Props) {
   const {
+    onSaveModalClose,
+    onSaveModalConfirm,
+    updateUser,
+    saveModalOpen,
+    loading,
+    user,
+  } = useUserDetail(isEditing, id)
+  const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm()
-  const { loading, user } = useUserDetail(isEditing, id)
+  } = useForm<UpdateUserPayload>()
 
   const iUser = useMemo(() => {
     if (!user) {
@@ -46,7 +55,10 @@ export default function UserForm({ isEditing, id }: Props) {
     return getRoleOptions()
   }, [])
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data: UpdateUserPayload) => {
+    console.log('onSubmit', { data })
+    updateUser(data)
+  }
 
   if (loading) {
     return null
@@ -54,34 +66,41 @@ export default function UserForm({ isEditing, id }: Props) {
 
   return (
     <>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={3}>
         <Paper>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={2}>
-              <div>
-                <Avatar
-                  alt={user?.displayName}
-                  src={user?.photoURL}
-                  sx={{ width: '100%', height: 'auto' }}
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12} md={10}>
-              <TextField
-                label="Nome de Exibição"
-                value={user?.displayName}
-                readOnly
-              />
-              <TextField label="E-mail" value={user?.email} readOnly />
-              <div>
-                <CheckboxField
-                  label="E-mail verificado."
-                  checked={user?.emailVerified}
-                  readOnly
-                />
-              </div>
-            </Grid>
-          </Grid>
+          <PaperTitle text="Avatar" />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              overflow: 'hidden',
+            }}
+          >
+            <Avatar
+              alt={user?.displayName}
+              src={user?.photoURL}
+              sx={{ width: 228, height: 228 }}
+            />
+          </Box>
+        </Paper>
+      </Grid>
+
+      <Grid item xs={12} md={9}>
+        <Paper>
+          <PaperTitle text="Dados pessoais" />
+          <TextField
+            label="Nome de Exibição"
+            value={user?.displayName}
+            readOnly
+          />
+          <TextField label="E-mail" value={user?.email} readOnly />
+          <div>
+            <CheckboxField
+              label="E-mail verificado."
+              checked={user?.emailVerified}
+              readOnly
+            />
+          </div>
         </Paper>
       </Grid>
 
@@ -115,7 +134,7 @@ export default function UserForm({ isEditing, id }: Props) {
                 <Controller
                   name="role"
                   control={control}
-                  defaultValue={user?.role || ''}
+                  defaultValue={user?.role as DBUserRole}
                   render={({ field }) => (
                     <SelectField
                       {...field}
@@ -134,7 +153,24 @@ export default function UserForm({ isEditing, id }: Props) {
         </Paper>
       </Grid>
 
-      <ProviderForm providers={user?.providers || []} />
+      <Grid item xs={12}>
+        <UserProviderForm providers={user?.providers || []} />
+      </Grid>
+
+      <Grid item xs={12} md={12}>
+        <UserPhotos
+          providers={user?.providers}
+          currentPhotoURL={user?.photoURL}
+        />
+      </Grid>
+
+      <AlertDialog
+        title="Alteração"
+        message={`Confirma a alteração do usuário ${user?.displayName}?`}
+        onConfirm={onSaveModalConfirm}
+        onClose={onSaveModalClose}
+        open={saveModalOpen}
+      />
     </>
   )
 }

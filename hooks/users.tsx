@@ -1,5 +1,12 @@
-import { useEffect, useState } from 'react'
-import { DbUser, findUsers, getUser } from './services/users'
+import { useCallback, useEffect, useState } from 'react'
+import {
+  DbUser,
+  findUsers,
+  getUser,
+  updateUserByAdmin,
+  UpdateUserPayload,
+} from './services/users'
+import { useToastMessage } from './useToast'
 
 interface UserListProps {
   users: DbUser[]
@@ -22,6 +29,10 @@ export const useUserList = (): UserListProps => {
 }
 
 interface UserDetailProps {
+  onSaveModalClose: () => void
+  onSaveModalConfirm: () => void
+  updateUser: (userPayload: UpdateUserPayload) => void
+  saveModalOpen: boolean
   loading: boolean
   user?: DbUser
   error?: string
@@ -34,6 +45,11 @@ export const useUserDetail = (
   const [user, setUser] = useState<DbUser | undefined>()
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
+  const [saveModalOpen, setSaveModalOpen] = useState<boolean>(false)
+  const [updateUserPayload, setUpdateUserPayload] = useState<
+    UpdateUserPayload | undefined
+  >()
+  const { toastSuccess, toastError } = useToastMessage()
 
   useEffect(() => {
     if (isEditing) {
@@ -52,5 +68,34 @@ export const useUserDetail = (
     }
   }, [isEditing, id])
 
-  return { user, error, loading }
+  const onSaveModalClose = useCallback(() => {
+    setSaveModalOpen(false)
+  }, [])
+
+  const onSaveModalConfirm = useCallback(async () => {
+    try {
+      await updateUserByAdmin(
+        id as string,
+        updateUserPayload as UpdateUserPayload
+      )
+      toastSuccess('Usuário atualizado com sucesso.')
+    } catch (err) {
+      toastError('Erro ao atualizar usuário.', err)
+    }
+  }, [id, toastError, toastSuccess, updateUserPayload])
+
+  const updateUser = useCallback((updateUserPayload: UpdateUserPayload) => {
+    setUpdateUserPayload(updateUserPayload)
+    setSaveModalOpen(true)
+  }, [])
+
+  return {
+    onSaveModalClose,
+    onSaveModalConfirm,
+    updateUser,
+    saveModalOpen,
+    user,
+    error,
+    loading,
+  }
 }

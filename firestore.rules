@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth.uid != null;
+    }
+
+    function isAdmin() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+  	match /users/{userId} {
+      allow get, create: if signedIn();
+
+      allow list: if signedIn() && isAdmin();
+
+      allow delete: if false;
+
+      allow update: if signedIn() && isAdmin() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role', 'updatedAt']));
+      allow update: if signedIn() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['photoURL', 'displayName', 'emailVerified', 'providers', 'updatedAt', 'lastLoginAt']));
+    }
+  }
+}

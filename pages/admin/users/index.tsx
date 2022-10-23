@@ -87,10 +87,12 @@ const UsersPage: NextPage = () => {
     <>
       <PageHead title="Usuários" />
 
-      <AdminLayout>
-        <Grid item xs={12}>
-          {error && <Alert severity="error">{error}</Alert>}
-        </Grid>
+      <AdminLayout breadcrumbs={[{ label: 'Usuários' }]}>
+        {error && (
+          <Grid item xs={12}>
+            <Alert severity="error">{error}</Alert>
+          </Grid>
+        )}
         <DataTable id="tblUsers" model={model} />
       </AdminLayout>
     </>

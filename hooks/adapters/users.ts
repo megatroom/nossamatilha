@@ -3,6 +3,7 @@ import { Timestamp } from 'firebase/firestore'
 import { DbUser, DBUserRole } from 'hooks/services/users'
 
 export type IUserRole =
+  | 'Bloqueado'
   | 'Visitante'
   | 'Cliente'
   | 'Funcionário'
@@ -28,6 +29,8 @@ export interface IUser
 
 const getIUserRole = (role: DBUserRole): IUserRole => {
   switch (role) {
+    case DBUserRole.blocked:
+      return 'Bloqueado'
     case DBUserRole.guest:
       return 'Visitante'
     case DBUserRole.customer:

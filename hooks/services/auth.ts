@@ -13,6 +13,7 @@ import {
   DbUserPayload,
   DBUserProvider,
   DBUserProviderCode,
+  EMPTY_DISPLAY_NAME_PLACEHOLDER,
   findOrCreateUser,
 } from './users'
 
@@ -66,7 +67,7 @@ const handleLoggedUser = async (user: User): Promise<DbUserPayload> => {
   })
 
   const result: DbUserPayload = {
-    displayName: displayName || 'Guest',
+    displayName: displayName || EMPTY_DISPLAY_NAME_PLACEHOLDER,
     uid,
     jwtToken,
     email,
