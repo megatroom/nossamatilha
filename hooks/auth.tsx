@@ -15,6 +15,7 @@ import {
   observeAuthState,
 } from './services/auth'
 import { DbUser, DBUserProviderCode } from './services/users'
+import UserBlockedError from './errors/UserBlockedError'
 
 export const ADMIN_ROUTER_PATH = '/admin'
 export const LOGIN_ROUTER_PATH = '/auth/login'
@@ -29,6 +30,7 @@ interface AuthContextState {
   setRedirectOnLogoutTo: (path: string) => void
   redirectOnLogoutTo: string
   isAuthenticating: boolean
+  authError?: string
   user?: DbUser
 }
 
@@ -46,15 +48,22 @@ const AuthContext = createContext<AuthContextState>(initialAuthContextState)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<DbUser | undefined>()
+  const [authError, setAuthError] = useState<string | undefined>()
   const [isAuthenticating, setLoading] = useState(true)
   const [redirectOnLogoutTo, updateRedirectOnLogoutTo] = useState(
     initialAuthContextState.redirectOnLogoutTo
   )
 
   useEffect(() => {
-    observeAuthState((currentUser) => {
+    observeAuthState((currentUser, error) => {
       setUser(currentUser)
       setLoading(false)
+
+      if (error && error instanceof UserBlockedError) {
+        setAuthError(error.message)
+      } else {
+        setAuthError(undefined)
+      }
     })
   }, [])
 
@@ -71,6 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setRedirectOnLogoutTo,
         redirectOnLogoutTo,
         isAuthenticating,
+        authError,
         user,
       }}
     >
@@ -121,8 +131,7 @@ export const useAuth = (props?: UseAuthProps): UseAuthResult => {
 }
 
 export const useLogin = () => {
-  const { isAuthenticating, user } = useContext(AuthContext)
-  const [error, setError] = useState<string | undefined>()
+  const { isAuthenticating, user, authError } = useContext(AuthContext)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -155,7 +164,7 @@ export const useLogin = () => {
     loginWithFacebook,
     loginWithGoogle,
     loginWithTwitter,
+    error: authError,
     loading,
-    error,
   }
 }

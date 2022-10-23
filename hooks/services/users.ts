@@ -12,6 +12,7 @@ import {
   DocumentReference,
   updateDoc,
 } from 'firebase/firestore'
+import UserBlockedError from 'hooks/errors/UserBlockedError'
 import { getFirebaseFirestore } from './database/firebase'
 
 export const EMPTY_DISPLAY_NAME_PLACEHOLDER = 'Guest'
@@ -164,6 +165,11 @@ export const findOrCreateUser = async (
 
   if (persistedDoc.exists()) {
     const persistedUser = persistedDoc.data() as DbUser
+
+    if (persistedUser.role === DBUserRole.blocked) {
+      throw new UserBlockedError()
+    }
+
     await updateLoginUser(docRef, persistedUser, userPayload)
   } else {
     await createUser(userPayload)

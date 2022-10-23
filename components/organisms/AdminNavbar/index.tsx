@@ -17,10 +17,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
 
 import LogoImg from './img/nossa-matilha-navbar-logo.png'
-import { DbUser } from 'hooks/services/users'
+import { DbUser, DBUserRole } from 'hooks/services/users'
 
 interface MenuOption {
   label: string
+  roles: 'all' | DBUserRole[]
   linkTo?: string
   onClick?: () => void
 }
@@ -42,6 +43,16 @@ const Brand = () => (
     </a>
   </Link>
 )
+
+const handleUserAccess = (currentUser?: DbUser) => (menu: MenuOption) => {
+  if (!currentUser) {
+    return false
+  }
+  if (menu.roles === 'all') {
+    return true
+  }
+  return menu.roles.includes(currentUser?.role)
+}
 
 const AdminNavbar = ({ user, logout }: Props) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -71,23 +82,30 @@ const AdminNavbar = ({ user, logout }: Props) => {
   }
 
   const { mainMenu, settingsMenu } = useMemo<MenuOptions>(() => {
+    const menuFilter = handleUserAccess(user)
     return {
-      mainMenu: [
-        {
-          label: 'Usuários',
-          linkTo: '/admin/users',
-        },
-      ],
-      settingsMenu: [
-        {
-          label: 'Sair',
-          onClick: () => {
-            logout()
+      mainMenu: (
+        [
+          {
+            label: 'Usuários',
+            linkTo: '/admin/users',
+            roles: [DBUserRole.admin],
           },
-        },
-      ],
+        ] as MenuOption[]
+      ).filter(menuFilter),
+      settingsMenu: (
+        [
+          {
+            label: 'Sair',
+            roles: 'all',
+            onClick: () => {
+              logout()
+            },
+          },
+        ] as MenuOption[]
+      ).filter(menuFilter),
     }
-  }, [logout])
+  }, [user, logout])
 
   return (
     <AppBar position="static" color="inherit">

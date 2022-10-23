@@ -136,7 +136,7 @@ export const initSignOut = async (): Promise<void> => {
 }
 
 export const observeAuthState = (
-  callback: (user: DbUser | undefined) => void
+  callback: (user: DbUser | undefined, error?: Error) => void
 ) => {
   onAuthStateChanged(getFirebaseAuth(), (user) => {
     if (user) {
@@ -144,8 +144,7 @@ export const observeAuthState = (
         .then(findOrCreateUser)
         .then(callback)
         .catch((err) => {
-          console.error('Error getting user from database', err)
-          callback(undefined)
+          callback(undefined, err)
         })
     } else {
       callback(undefined)

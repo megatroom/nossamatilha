@@ -32,6 +32,7 @@ graph TD
         services --> database
         services --> clients
         hooks --> adapters
+        hooks --> errors
     end
 
     subgraph styles
