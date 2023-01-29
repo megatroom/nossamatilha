@@ -1,6 +1,6 @@
 import { SelectOption } from 'components/atoms/form/SelectField'
-import { Timestamp } from 'firebase/firestore'
 import { DbUser, DBUserRole } from 'hooks/services/users'
+import { adaptTimestampToString } from './helpers/date'
 
 export type IUserRole =
   | 'Bloqueado'
@@ -51,29 +51,13 @@ export const getRoleOptions = (): SelectOption<DBUserRole>[] => {
   }))
 }
 
-const getIUserDate = (date: Timestamp): string => {
-  try {
-    return `${date.toDate().toLocaleDateString('pt-BR', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    })} ${date.toDate().toLocaleTimeString('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}`
-  } catch (err) {
-    console.error('getIUserDate error', date, err)
-    return ''
-  }
-}
-
 export const adaptDbUserToIUser = (dbUser: DbUser): IUser => {
   return {
     ...dbUser,
     role: getIUserRole(dbUser.role),
     emailVerified: dbUser.emailVerified ? 'Sim' : 'Não',
-    createdAt: getIUserDate(dbUser.createdAt),
-    updatedAt: getIUserDate(dbUser.updatedAt),
-    lastLoginAt: getIUserDate(dbUser.lastLoginAt),
+    createdAt: adaptTimestampToString(dbUser.createdAt),
+    updatedAt: adaptTimestampToString(dbUser.updatedAt),
+    lastLoginAt: adaptTimestampToString(dbUser.lastLoginAt),
   }
 }

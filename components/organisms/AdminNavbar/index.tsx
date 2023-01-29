@@ -87,6 +87,11 @@ const AdminNavbar = ({ user, logout }: Props) => {
       mainMenu: (
         [
           {
+            label: 'Depoimentos',
+            linkTo: '/admin/testimonials',
+            roles: [DBUserRole.admin],
+          },
+          {
             label: 'Usuários',
             linkTo: '/admin/users',
             roles: [DBUserRole.admin],

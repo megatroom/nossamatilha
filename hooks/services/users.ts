@@ -53,6 +53,7 @@ export interface DbUser {
   id: string
   providerPlatform: 'firebase'
   providers: DBUserProvider[]
+  testimonials: string[]
   role: DBUserRole
   jwtToken: string
   displayName: string
@@ -66,7 +67,13 @@ export interface DbUser {
 
 export type DbUserPayload = Omit<
   DbUser,
-  'id' | 'providerPlatform' | 'createdAt' | 'updatedAt' | 'lastLoginAt' | 'role'
+  | 'id'
+  | 'providerPlatform'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'lastLoginAt'
+  | 'role'
+  | 'testimonials'
 > & {
   uid: string
 }
@@ -81,8 +88,9 @@ const createUser = async (userPayload: DbUserPayload): Promise<void> => {
 
   await setDoc(doc(getFirebaseFirestore(), USERS_COLLECTION_NAME, uid), {
     ...payload,
-    role: 'guest',
+    role: DBUserRole.guest,
     providerPlatform: 'firebase',
+    testimonials: [],
     createdAt: currentDateTime,
     updatedAt: currentDateTime,
     lastLoginAt: currentDateTime,
@@ -140,7 +148,7 @@ export const updateUserByAdmin = async (
 
   await updateDoc(docRef, {
     ...userPayload,
-    updatedAt: serverTimestamp() as Timestamp,
+    updatedAt: serverTimestamp(),
   })
 }
 
@@ -153,7 +161,10 @@ export const getUser = async (uid: string): Promise<DbUser> => {
     throw new Error('User not found')
   }
 
-  return persistedUser.data() as DbUser
+  return {
+    ...(persistedUser.data() as DbUser),
+    id: uid,
+  }
 }
 
 export const findOrCreateUser = async (
@@ -182,9 +193,7 @@ export const findOrCreateUser = async (
 export const findUsers = async (): Promise<DbUser[]> => {
   const result: DbUser[] = []
 
-  const citiesRef = getCollection()
-
-  const users = query(citiesRef, orderBy('displayName'), limit(50))
+  const users = query(getCollection(), orderBy('displayName'), limit(50))
 
   const querySnapshot = await getDocs(users)
 

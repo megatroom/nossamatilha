@@ -25,8 +25,6 @@ export interface ButtonProps extends MuiButtonProps {
   isHero?: boolean
   loading?: boolean
   target?: string
-  icon?: ReactNode
-  endIcon?: ReactNode
   size?: 'small' | 'medium' | 'large'
 }
 
@@ -48,7 +46,7 @@ export default forwardRef(function Button(
     isHero = false,
     variant = 'contained',
     loading,
-    icon,
+    startIcon,
     endIcon,
     size,
     ...rest
@@ -68,7 +66,7 @@ export default forwardRef(function Button(
       role={undefined}
       variant={variant}
       hero={isHero ? '1' : '0'}
-      startIcon={icon}
+      startIcon={startIcon}
       endIcon={endIcon}
       size={size}
       disableElevation

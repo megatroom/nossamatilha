@@ -1,4 +1,4 @@
-import { FieldError } from 'react-hook-form'
+import { FormControlError } from 'components/atoms/form/FormControl'
 
 export interface ErrorOption {
   minLength?: number
@@ -6,9 +6,13 @@ export interface ErrorOption {
 }
 
 export const extractValidationText = (
-  formError: FieldError,
+  formError: FormControlError,
   options: ErrorOption = {}
 ): string => {
+  if (typeof formError === 'string') {
+    return formError
+  }
+
   switch (formError.type) {
     case 'required':
       return 'Campo obrigatório'

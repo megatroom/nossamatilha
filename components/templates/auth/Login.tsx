@@ -64,7 +64,7 @@ export default function Login({
             <Button
               onClick={onFacebookAuth}
               loading={loading}
-              icon={<FacebookIcon />}
+              startIcon={<FacebookIcon />}
               size="large"
               sx={{ mb: 2 }}
             >
@@ -73,7 +73,7 @@ export default function Login({
             <Button
               onClick={onGoogleAuth}
               loading={loading}
-              icon={<GoogleIcon />}
+              startIcon={<GoogleIcon />}
               size="large"
               sx={{ mb: 2 }}
             >
@@ -82,7 +82,7 @@ export default function Login({
             <Button
               onClick={onTwitterAuth}
               loading={loading}
-              icon={<TwitterIcon />}
+              startIcon={<TwitterIcon />}
               size="large"
               sx={{ mb: 2 }}
             >

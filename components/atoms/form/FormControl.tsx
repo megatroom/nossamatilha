@@ -13,6 +13,7 @@ const StyledLabel = styled(InputLabel)(({ theme }) => ({
 }))
 
 export type FormControlError =
+  | string
   | FieldError
   | Merge<FieldError, FieldErrorsImpl<any>>
 
@@ -58,7 +59,7 @@ export default function FormControl({
       {renderField?.({ fieldId, hasError })}
       {fieldError && (
         <FormHelperText error>
-          {extractValidationText(fieldError as FieldError, errorOption)}
+          {extractValidationText(fieldError, errorOption)}
         </FormHelperText>
       )}
       {helperText && <FormHelperText>{helperText}</FormHelperText>}

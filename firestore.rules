@@ -9,15 +9,26 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
     }
 
+    function isValidUId() {
+      return request.auth.uid == request.resource.data.uid;
+    }
+
   	match /users/{userId} {
-      allow get, create: if signedIn();
+      allow delete: if false;
+
+      allow get: if signedIn();
 
       allow list: if signedIn() && isAdmin();
 
-      allow delete: if false;
+      allow create: if signedIn() && request.resource.data.role == 'guest';
 
       allow update: if signedIn() && isAdmin() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role', 'updatedAt']));
-      allow update: if signedIn() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['photoURL', 'displayName', 'emailVerified', 'providers', 'updatedAt', 'lastLoginAt']));
+      allow update: if signedIn() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['photoURL', 'displayName', 'emailVerified', 'providers', 'testimonials', 'updatedAt', 'lastLoginAt']));
+    }
+
+    match /testimonials/{testimonialId} {
+      allow create: if signedIn() && isValidUId() && request.resource.data.status == 'pending';
+      allow get, list, update, delete: if signedIn() && isAdmin();
     }
   }
 }
