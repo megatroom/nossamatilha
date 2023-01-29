@@ -8,7 +8,7 @@ import InstagramIco from './IconInstagram'
 import FacebookIco from './IconFacebook'
 
 const Root = styled('footer')({
-  borderTop: '1px solid #dddddd6e',
+  /* borderTop: '1px solid #dddddd6e', */
   padding: '1rem 0',
 })
 

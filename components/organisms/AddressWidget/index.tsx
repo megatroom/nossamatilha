@@ -6,9 +6,9 @@ const AddressWidget = () => {
   } = config()
 
   return (
-    <div style={{ border: '2px solid green' }}>
+    <div>
       <iframe
-        width="600"
+        width="100%"
         height="450"
         style={{ border: 0 }}
         loading="lazy"
