@@ -18,5 +18,8 @@ export default function config() {
         measurementId: 'G-XGB7F3J186',
       },
     },
+    googleMaps: {
+      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    },
   }
 }

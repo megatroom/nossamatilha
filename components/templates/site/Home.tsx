@@ -4,6 +4,7 @@ import Features from '../../organisms/Features'
 import Footer from '../../organisms/SiteFooter'
 import Testimonials from '../../organisms/Testimonials'
 import ContactCallout from '../../organisms/ContactCallout'
+import AddressWidget from '../../organisms/AddressWidget'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <Features />
         <Testimonials />
         <ContactCallout />
+        <AddressWidget />
       </main>
       <Footer />
     </>
